@@ -1,4 +1,5 @@
 import { consolePlugin } from '../plugins/console/';
+import { elementsPlugin } from "../plugins/elements";
 import { speakablePlugin } from '../plugins/speakable/';
 import { routerPlugin, createRouter } from '@merkur/plugin-router';
 import { render } from 'preact';
@@ -7,7 +8,7 @@ import { SkeletonComponent } from './SkeletonComponent';
 export const widget = {
   name: '@merkur/console',
   version: '0.0.1',
-  $plugins: [routerPlugin, consolePlugin, speakablePlugin],
+  $plugins: [routerPlugin, consolePlugin, speakablePlugin, elementsPlugin],
   $external: {
     routes: [],
   },
