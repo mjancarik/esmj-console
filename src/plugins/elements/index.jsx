@@ -21,6 +21,16 @@ export function elementsPlugin() {
         }
       };
 
+      const config = { attributes: true, childList: true, subtree: true };
+      const callback = () => {
+        widget.$in.elements.state.elements = document.documentElement
+
+        widget.state.elements &&
+        widget.setState({ ...widget.$in.elements.state });
+      };
+      const observer = new MutationObserver(callback);
+      observer.observe(document.documentElement, config);
+
       widget.$external.routes.push({
         name: 'elements',
         path: '/elements',
