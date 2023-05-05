@@ -1,0 +1,49 @@
+.element--has-child-nodes {
+    cursor: pointer;
+    position: relative;
+}
+
+.element--has-child-nodes::before {
+    content: '⏷';
+    position: absolute;
+    left: -10px;
+    top: 2px;
+    font-size: 13px;
+    color: #5f6367;
+}
+
+.element--has-child-nodes.element--collapsed::before {
+    content: '⏵';
+}
+
+.element--has-child-nodes:hover {
+    background-color: #ebf1fb;
+}
+
+.element__tag {
+    color: #993791;
+}
+
+.element__three-dots {
+    position: relative;
+    background-color: #f1f3f4;
+    border: 1px solid #cbcdd1;
+    border-radius: 7px;
+    display: inline-block;
+    height: 6px;
+    width: 8px;
+    margin: auto 2px;
+    padding: 0 2px 2px;
+    vertical-align: middle;
+}
+
+.element__three-dots::after {
+    content: '…';
+    position: absolute;
+    color: #80868a;
+    font-size: 9px;
+    line-height: 6px;
+    top: -1px;
+    left: 2px;
+    font-weight: bold;
+}
