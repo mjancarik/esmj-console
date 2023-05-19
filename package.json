@@ -1,6 +1,5 @@
 {
   "name": "@esmj/console",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -16,6 +15,10 @@
     "classnames": "^2.3.2",
     "preact": "^10.13.0",
     "to-aop": "^0.5.4"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.5.0",
