@@ -1,5 +1,5 @@
 import { consolePlugin } from '../plugins/console/';
-import { elementsPlugin } from "../plugins/elements";
+import { elementsPlugin } from '../plugins/elements';
 import { speakablePlugin } from '../plugins/speakable/';
 import { componentPlugin } from '@merkur/plugin-component';
 import { eventEmitterPlugin } from '@merkur/plugin-event-emitter';
@@ -10,15 +10,22 @@ import { SkeletonComponent } from './SkeletonComponent';
 export const widgetProperties = {
   name: '@merkur/console',
   version: '0.0.1',
-  $plugins: [componentPlugin, eventEmitterPlugin, routerPlugin, consolePlugin, speakablePlugin, elementsPlugin],
+  $plugins: [
+    componentPlugin,
+    eventEmitterPlugin,
+    routerPlugin,
+    consolePlugin,
+    speakablePlugin,
+    elementsPlugin,
+  ],
   $external: {
     routes: [],
   },
   assets: [],
   props: {
     pathname: '/speakable',
-    open: false,
-    },
+    open: true,
+  },
   create(widget) {
     createRouter(widget, widget.$external.routes);
     const container = document.createElement('div');
@@ -37,7 +44,7 @@ export const widgetProperties = {
     document.body.appendChild(widget.$external.container);
     this.update(widget);
   },
-  unmount(widget) {
+  unmount() {
     // TODO
   },
   update(widget) {
@@ -48,11 +55,16 @@ export const widgetProperties = {
       style.setProperty('height', '100vh');
       style.setProperty('width', '100vw');
     } else {
-      style.setProperty('top', `calc(100% - ${`${widget.$external.buttonSize}px`})`);
-      style.setProperty('left', `calc(100% - ${`${widget.$external.buttonSize}px`})`);
+      style.setProperty(
+        'top',
+        `calc(100% - ${`${widget.$external.buttonSize}px`})`
+      );
+      style.setProperty(
+        'left',
+        `calc(100% - ${`${widget.$external.buttonSize}px`})`
+      );
       style.setProperty('height', 'auto');
       style.setProperty('height', 'auto');
-
     }
 
     render(<SkeletonComponent widget={widget} />, widget.$external.container);

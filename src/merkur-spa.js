@@ -12,12 +12,12 @@ export async function createSPAWidget(properties) {
   await loadAssets(widgetProperties.assets);
 
   await new Promise((resolve) => {
-    if (typeof document !== undefined) {
+    if (typeof document !== 'undefined') {
       if (document.readyState !== 'loading') {
         resolve();
       } else {
         window.addEventListener('DOMContentLoaded', () => {
-          resolve()
+          resolve();
         });
       }
     }

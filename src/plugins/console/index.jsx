@@ -2,13 +2,7 @@ import { aop, hookName, createHook } from 'to-aop';
 
 function routeFactory({ widget }) {
   return {
-    view: () => (<pre>{
-      JSON.stringify(
-        widget.state,
-        0,
-        4
-      )
-    }</pre>),
+    view: () => <pre>{JSON.stringify(widget.state, 0, 4)}</pre>,
     async load() {
       return {
         ...widget.$in.console.state,
@@ -16,7 +10,6 @@ function routeFactory({ widget }) {
     },
   };
 }
-
 
 export function consolePlugin() {
   return {

@@ -1,22 +1,18 @@
-import AbstractNodeType from "../AbstractNodeType.jsx";
+import AbstractNodeType from '../AbstractNodeType.jsx';
 
 export default class Text extends AbstractNodeType {
-    renderCollapsed() {
-        const { node } = this.props;
-        const content = node.textContent.trim();
+  renderCollapsed() {
+    const { node } = this.props;
+    const content = node.textContent.trim();
 
-        if (!content) {
-            return null;
-        }
-
-        return (
-            <li onClick={this.onClick}>
-                { node.textContent }
-            </li>
-        );
+    if (!content) {
+      return null;
     }
 
-    renderExtended() {
-        return this.renderCollapsed();
-    }
+    return <li onClick={this.onClick}>{node.textContent}</li>;
+  }
+
+  renderExtended() {
+    return this.renderCollapsed();
+  }
 }
