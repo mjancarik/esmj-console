@@ -1,4 +1,5 @@
 import { getMerkur, createMerkurWidget } from '@merkur/core';
+import { loadAssets } from '@merkur/integration';
 
 export async function createSPAWidget(properties) {
   const widgetProperties = {
@@ -8,7 +9,7 @@ export async function createSPAWidget(properties) {
 
   getMerkur().register(widgetProperties);
 
-  // TODO assets
+  await loadAssets(widgetProperties.assets);
 
   await new Promise((resolve) => {
     if (typeof document !== undefined) {

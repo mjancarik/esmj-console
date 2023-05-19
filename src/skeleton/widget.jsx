@@ -14,9 +14,10 @@ export const widgetProperties = {
   $external: {
     routes: [],
   },
+  assets: [],
   props: {
     pathname: '/speakable',
-    open: true,
+    open: false,
     },
   create(widget) {
     createRouter(widget, widget.$external.routes);
@@ -34,7 +35,6 @@ export const widgetProperties = {
   },
   mount(widget) {
     document.body.appendChild(widget.$external.container);
-    console.log('mount');
     this.update(widget);
   },
   unmount(widget) {
