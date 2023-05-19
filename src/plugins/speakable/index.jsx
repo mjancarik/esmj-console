@@ -38,6 +38,11 @@ function routeFactory({ widget }) {
         backgroundColor: 'lightblue',
       };
 
+      const overflowBlockStyle = {
+        height: 'calc(100% - 80px)',
+        overflow: 'auto',
+      };
+
       const listStyle = {
         listStyle: 'none',
         padding: 0,
@@ -69,7 +74,7 @@ function routeFactory({ widget }) {
           <button style={{ ...defaultButton }} onClick={onCancel}>
             {'X'}
           </button>
-          <div>
+          <div style={{ ...overflowBlockStyle }}>
             <ul style={{ ...listStyle }}>
               {texts.map((text, index) => {
                 let readText = {};
@@ -188,12 +193,15 @@ function routeFactory({ widget }) {
         });
 
         speech.addEventListener('start', () => {
+          console.log('start');
           setState({ playing: true, paused: false });
         });
         speech.addEventListener('resume', () => {
+          console.log('resume');
           setState({ playing: true, paused: false });
         });
         speech.addEventListener('pause', () => {
+          console.log('pause');
           setState({ playing: false, paused: true });
         });
         speech.addEventListener('error', (error) => {
