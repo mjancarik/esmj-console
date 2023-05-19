@@ -1,8 +1,6 @@
 import { Component } from 'preact';
 import { context } from './context';
 
-
-
 function StickyButton({ widget, children }) {
   const style = {
     width: `${widget.$external.buttonSize}px`,
@@ -13,6 +11,7 @@ function StickyButton({ widget, children }) {
     borderRadius: '5px',
     fontWeight: 'bold',
     fontSize: '18px',
+    color: 'white',
   };
 
   return (
@@ -65,7 +64,7 @@ function Menu({ widget }) {
           itemStyle.boxShadow = '0px 2px blue';
         } 
 
-        return <li style={itemStyle} onClick={() => widget.setProps({ pathname: widget.router.link(route.name )})}>{route.name}</li>
+        return <li style={itemStyle} onClick={() => widget.setProps({ pathname: widget.router.link(route.name)})}>{route.name}</li>
       })}
     </ul>
   )

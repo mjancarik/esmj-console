@@ -17,7 +17,7 @@ function routeFactory({ widget }) {
         width: '40px',
         height: '40px',
         fontSize: '22px',
-        margin: '4px 4px 0 4px',
+        margin: '0px 4px',
       }
 
       return (
@@ -168,6 +168,7 @@ export function speakablePlugin() {
           }
         }
       };
+      window.speechSynthesis.cancel();
 
       return widget;
     },

@@ -1,14 +1,12 @@
 import { createSPAWidget } from './merkur-spa';
 
-import { widget } from './skeleton/widget';
+import { widgetProperties } from './skeleton/widget';
 
-if (typeof document !== undefined) {
-  if (document.readyState !== 'loading') {
-    createSPAWidget(widget);
-  } else {
-    window.addEventListener('DOMContentLoaded', () => {
-      createSPAWidget(widget);
-    });
+(async () => {
+  try {
+    const widget = await createSPAWidget(widgetProperties);
+    widget.mount();
+  } catch(error) {
+    console.error(error);
   }
-}
-
+})();

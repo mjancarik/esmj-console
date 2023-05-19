@@ -1,14 +1,16 @@
 import { consolePlugin } from '../plugins/console/';
 import { elementsPlugin } from "../plugins/elements";
 import { speakablePlugin } from '../plugins/speakable/';
+import { componentPlugin } from '@merkur/plugin-component';
+import { eventEmitterPlugin } from '@merkur/plugin-event-emitter';
 import { routerPlugin, createRouter } from '@merkur/plugin-router';
 import { render } from 'preact';
 import { SkeletonComponent } from './SkeletonComponent';
 
-export const widget = {
+export const widgetProperties = {
   name: '@merkur/console',
   version: '0.0.1',
-  $plugins: [routerPlugin, consolePlugin, speakablePlugin, elementsPlugin],
+  $plugins: [componentPlugin, eventEmitterPlugin, routerPlugin, consolePlugin, speakablePlugin, elementsPlugin],
   $external: {
     routes: [],
   },

@@ -1,28 +1,26 @@
 import { getMerkur, createMerkurWidget } from '@merkur/core';
-import { componentPlugin } from '@merkur/plugin-component';
-import { eventEmitterPlugin } from '@merkur/plugin-event-emitter';
 
-export function createSPAWidget(properties) {
+export async function createSPAWidget(properties) {
   const widgetProperties = {
     ...properties,
-    props: properties.props ?? {},
-    state: properties.state ?? {},
-    $plugins: [
-      componentPlugin,
-      eventEmitterPlugin,
-      ...(properties.$plugins ?? []),
-    ],
-    $dependencies: properties.$dependencies ?? {},
     createWidget: createMerkurWidget,
   };
 
   getMerkur().register(widgetProperties);
-  return getMerkur()
-    .create(widgetProperties)
-    .then(function (widget) {
-      return widget.mount();
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+
+  // TODO assets
+
+  await new Promise((resolve) => {
+    if (typeof document !== undefined) {
+      if (document.readyState !== 'loading') {
+        resolve();
+      } else {
+        window.addEventListener('DOMContentLoaded', () => {
+          resolve()
+        });
+      }
+    }
+  });
+
+  return await getMerkur().create(widgetProperties);
 }
