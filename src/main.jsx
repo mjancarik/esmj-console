@@ -1,6 +1,7 @@
 import { createSPAWidget } from './merkur-spa';
 
 import { widgetProperties } from './skeleton/widget';
+import './reset.css';
 
 class ESMJConsole extends HTMLElement {
   constructor() {
