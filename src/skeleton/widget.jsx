@@ -15,8 +15,8 @@ export const widgetProperties = {
     eventEmitterPlugin,
     routerPlugin,
     consolePlugin,
-    speakablePlugin,
     elementsPlugin,
+    speakablePlugin,
   ],
   $external: {
     routes: [],
@@ -41,7 +41,7 @@ export const widgetProperties = {
     };
   },
   mount(widget) {
-    document.body.appendChild(widget.$external.container);
+    widget.root.appendChild(widget.$external.container);
     this.update(widget);
   },
   unmount() {

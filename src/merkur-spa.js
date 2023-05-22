@@ -3,15 +3,21 @@ import { loadAssets } from '@merkur/integration';
 
 export async function createSPAWidget(properties) {
   const widgetProperties = {
+    root: document.body,
     ...properties,
     createWidget: createMerkurWidget,
   };
 
   getMerkur().register(widgetProperties);
 
-  await loadAssets(widgetProperties.assets);
+  await afterDOMLoad();
+  await loadAssets(widgetProperties.assets, widgetProperties.root);
 
-  await new Promise((resolve) => {
+  return await getMerkur().create(widgetProperties);
+}
+
+export function afterDOMLoad() {
+  return new Promise((resolve) => {
     if (typeof document !== 'undefined') {
       if (document.readyState !== 'loading') {
         resolve();
@@ -22,6 +28,4 @@ export async function createSPAWidget(properties) {
       }
     }
   });
-
-  return await getMerkur().create(widgetProperties);
 }

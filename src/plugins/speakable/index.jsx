@@ -26,7 +26,8 @@ function routeFactory({ widget }) {
     view: () => {
       const { onPrevious, onNext, onPlay, onPause, onCancel, onParse } =
         widget.router.getCurrentRoute();
-      const { error, texts, textIndex, cursor } = widget.state.speakable;
+      const { error, texts, textIndex, cursor, playing } =
+        widget.state.speakable;
 
       const defaultButton = {
         width: '40px',
@@ -62,12 +63,16 @@ function routeFactory({ widget }) {
           <button style={{ ...defaultButton }} onClick={onPrevious}>
             {'<<'}
           </button>
-          <button style={{ ...defaultButton }} onClick={onPlay}>
-            {'>'}
-          </button>
-          <button style={{ ...defaultButton }} onClick={onPause}>
-            {'||'}
-          </button>
+          {!playing && (
+            <button style={{ ...defaultButton }} onClick={onPlay}>
+              {'>'}
+            </button>
+          )}
+          {playing && (
+            <button style={{ ...defaultButton }} onClick={onPause}>
+              {'||'}
+            </button>
+          )}
           <button style={{ ...defaultButton }} onClick={onNext}>
             {'>>'}
           </button>
@@ -193,15 +198,12 @@ function routeFactory({ widget }) {
         });
 
         speech.addEventListener('start', () => {
-          console.log('start');
           setState({ playing: true, paused: false });
         });
         speech.addEventListener('resume', () => {
-          console.log('resume');
           setState({ playing: true, paused: false });
         });
         speech.addEventListener('pause', () => {
-          console.log('pause');
           setState({ playing: false, paused: true });
         });
         speech.addEventListener('error', (error) => {
