@@ -9,15 +9,15 @@ class ESMJConsole extends HTMLElement {
 
     (async () => {
       try {
-        const __ESMJ_CONSOLE__ = {
-          assets: [
-            {
-              name: 'widget.css',
-              type: 'stylesheet',
-              source: 'https://unpkg.com/@esmj/console@latest/dist/style.css',
-            },
-          ],
-        };
+        // const __ESMJ_CONSOLE__ = {
+        //   assets: [
+        //     {
+        //       name: 'widget.css',
+        //       type: 'stylesheet',
+        //       source: 'https://unpkg.com/@esmj/console@latest/dist/style.css',
+        //     },
+        //   ],
+        // };
         if (
           typeof __ESMJ_CONSOLE__ !== 'undefined' &&
           __ESMJ_CONSOLE__?.assets?.length
@@ -36,3 +36,26 @@ class ESMJConsole extends HTMLElement {
 }
 
 customElements.define('esmj-console', ESMJConsole);
+
+// (async () => {
+//   const __ESMJ_CONSOLE__ = {
+//     assets: [
+//       {
+//         name: 'widget.css',
+//         type: 'stylesheet',
+//         source: 'https://unpkg.com/@esmj/console@latest/dist/style.css',
+//       },
+//     ],
+//   };
+//   const response = await fetch(
+//     'https://unpkg.com/@esmj/console@latest/dist/index.umd.cjs'
+//   );
+//   const text = await response.text();
+
+//   const element = document.createElement('esmj-console');
+//   document.body.appendChild(element);
+
+//   const script = document.createElement('script');
+//   script.innerHTML = text;
+//   document.head.appendChild(script);
+// })();
