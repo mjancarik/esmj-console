@@ -26,7 +26,7 @@ class ESMJConsole extends HTMLElement {
           widgetProperties.assets.push(...__ESMJ_CONSOLE__.assets);
         }
 
-        widgetProperties.root = shadow;
+        widgetProperties.root = import.meta.env.DEV ? document.body : shadow;
         const widget = await createSPAWidget(widgetProperties);
         widget.mount();
       } catch (error) {

@@ -29,6 +29,52 @@
         SZ Byznys jeden z majitelů firmy Jan Urban.</p>
     </main>
     <esmj-console></esmj-console>
+    <script>
+      window.sznIVA = window.sznIVA || {}
+        window.sznIVA.loaderWorkflow = {
+
+          // call functions when libs finished loading
+
+          calls: {
+            dot: [
+              ['after', function () {
+                console.log('DOT AFTER');
+                window.DOT.cfg({});
+                // + call queued in DOT template, PV hits, spentTime, custom events (tracking), recommendation events
+              }],
+            ],
+            ssp: [
+              ['after', function () {
+                console.log('SSP AFTER');
+                window.sssp.config({});
+                // + call queued in SSP template, multirequests, ....
+              }]
+            ],
+            gemius: [
+              ['after', function () {
+                console.log('GEMIUS AFTER');
+                // gemius related actions
+              }]
+            ]
+          },
+
+          // download defined libs on demand (not automatically)
+
+          onDemands: {
+            gemius: [
+              'event', 'loadGemiusByLoader' // loading triggered by firing CustomEvent (by service)
+              // 'delay', 3000 // alternatively load in hard timeout
+            ]
+          }
+        };
+
+        window.addEventListener("szn:ivaloader:init", (e) => {
+            console.log('SUL LOADED'); 
+          });
+
+
+    </script>
+    <script src="https://l.seznam.cz/sul.js?id=123"></script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

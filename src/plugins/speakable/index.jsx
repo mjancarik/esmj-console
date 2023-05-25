@@ -180,7 +180,7 @@ function routeFactory({ widget }) {
     onPause() {
       window.speechSynthesis.pause();
     },
-    init() {
+    async init() {
       const { speech } = widget.$in.speakable;
 
       if (!widget.$in.initialized) {
@@ -194,20 +194,25 @@ function routeFactory({ widget }) {
             widget.router.getCurrentRoute().onNext();
           } else {
             widget.router.getCurrentRoute().onCancel();
+            this.unlock();
           }
         });
 
         speech.addEventListener('start', () => {
           setState({ playing: true, paused: false });
+          this.lock();
         });
         speech.addEventListener('resume', () => {
           setState({ playing: true, paused: false });
+          this.lock();
         });
         speech.addEventListener('pause', () => {
           setState({ playing: false, paused: true });
+          this.unlock();
         });
         speech.addEventListener('error', (error) => {
           setState({ playing: false, paused: false, error });
+          this.unlock();
         });
         speech.addEventListener('boundary', (data) => {
           setState({ cursor: data.charIndex + data.charLength });
@@ -217,9 +222,20 @@ function routeFactory({ widget }) {
     load() {
       return { ...widget.$in.speakable.state };
     },
-    destroy() {
-      widget.router.getCurrentRoute().onPause();
+    async destroy() {
+      this.onPause();
       widget.$in.speakable.state.speakable = { ...widget.state.speakable };
+    },
+    async lock() {
+      if ('wakeLock' in navigator && !widget.$in.speakable.wakeLock) {
+        widget.$in.speakable.wakeLock = await navigator.wakeLock.request(
+          'screen'
+        );
+      }
+    },
+    async unlock() {
+      await widget.$in.speakable.wakeLock?.release();
+      widget.$in.speakable.wakeLock = null;
     },
   };
 }
@@ -241,6 +257,7 @@ export function speakablePlugin() {
       speech.pitch = 1;
       speech.rate = 1;
       widget.$in.speakable = {
+        wakeLock: null,
         speech,
         initialized: false,
         state: {
